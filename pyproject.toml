@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "brownian-integral-kernel"
+version = "0.3.0"
+description = "Experiments and visualisations for the Brownian-Integral-Kernel"
+authors = ["bela127 <bhb127@outlook.de>"]
+license = "MIT"
+packages = [
+    { include = "brownian_integral_kernel", from = "." }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.10"
+alts-modules = { path = "/home/bela/Cloud/code/Git/alts-modules", develop = true }
+#alts-modules = {git = "https://github.com/bela127/alts-modules.git"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+mypy = "^0.910"
+black = "^21.6b0"
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[mypy]
+plugins = "numpy.typing.mypy_plugin"
