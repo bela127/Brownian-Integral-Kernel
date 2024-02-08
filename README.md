@@ -38,7 +38,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 add it to bash, by adding the following to the bottom of the file  `~/.bashrc`:
 
 ```bash
-export PATH="/home/i40/boehnkeb/.local/bin:$PATH"
+export PATH="/home/[user]/.local/bin:$PATH"
 ```
 
 set poetry to use pyenv:
