@@ -59,4 +59,26 @@ install project dependencies:
 poetry install
 ```
 
-wait for all dependencies to install.
+wait for all dependencies to install and you are finished.
+
+You can now simply import and use the 'IntegralBrown' as you would with any other GPy kernel:
+
+```python
+from brownian_integral_kernel.integral_kernel import IntegralBrown
+
+... #Data loading
+
+k = IntegralBrown(variance=1)
+model = GPy.models.GPRegression(times, observation, k, noise_var=0.0)    
+```
+
+## Experiments and Evaluation
+
+After the installation you can easily reproduce all experiments, evaluation and figures:
+1. Simply run the "exp_..." scripts which will run the experiments on the datasets or on generated data.
+2. Run the "eval_..." scripts to calculate the evaluation metrics.
+3. Run the "vis_..." scripts to generate the plots seen in the paper.
+
+And you are finished.
+
+We also provide all load profile data in the "LP" subfolder.
