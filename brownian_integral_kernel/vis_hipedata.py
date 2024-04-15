@@ -27,10 +27,10 @@ datasets = [
 
 df = pd.read_csv(base_path+"/"+datasets[1])
 df=df.head(1000)
-df['SensorDateTime'] = pd.to_datetime(df['SensorDateTime'],format='ISO8601')
+df['Time'] = pd.to_datetime(df['SensorDateTime'],format='ISO8601')
 print(df.columns)
 for c in df.columns:
     print(c)
     print(df[c])
-    plt.plot(df['SensorDateTime'].astype(int)-df['SensorDateTime'].astype(int)[0],df[c])
+    plt.plot(df['Time'].astype(int)-df['Time'].astype(int)[0],df[c])
     plt.show()
