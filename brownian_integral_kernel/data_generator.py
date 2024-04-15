@@ -13,7 +13,7 @@ from alts.core.configuration import pre_init, init
 
 from typing import Tuple
 from typing_extensions import Self
-from nptyping import NDArray, Shape
+from nptyping import NDArray, Shape, Number
 
 @dataclass
 class GaussianProcessDataSource(DataSource):
