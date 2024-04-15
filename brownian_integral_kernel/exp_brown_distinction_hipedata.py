@@ -167,24 +167,24 @@ def experiment(name=datasets[0], path=base_path):
     k = GPy.kern.Integral_Limits(input_dim=2, variances=1, lengthscale=1)
     m_rbfik = GPy.models.GPRegression(interval_t, int_y[:,None], k, noise_var=0.0)
     m_rbfik.Gaussian_noise.variance.fix()
-    m_rbfik.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False)
+    m_rbfik.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_rbfik(m_rbfik, t_org, y_org, name)
 
     k = IntegralBrown(variance=1)
     m_ib = GPy.models.GPRegression(interval_t, int_y[:,None], k, noise_var=0.0)
     m_ib.Gaussian_noise.variance.fix()
-    m_ib.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False)
+    m_ib.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_integral(m_ib, t_org, y_org, name)
 
     k = GPy.kern.Brownian(variance=0.1)
     m_b = GPy.models.GPRegression(mean_t[:,None], mean_y[:,None], k, noise_var=0.0)
     m_b.Gaussian_noise.variance.fix()
-    m_b.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False)
+    m_b.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_brown(m_b, t_org, y_org, name)
 
     k = GPy.kern.Brownian(variance=0.1)
     m_bn = GPy.models.GPRegression(mean_t[:,None], mean_y[:,None], k, noise_var=0.2)
-    m_bn.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False)
+    m_bn.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_brown(m_bn, t_org, y_org, name, "bnk")
 
 #for file in scandir(base_path):
