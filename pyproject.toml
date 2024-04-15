@@ -13,6 +13,7 @@ python = ">=3.9,<3.10"
 #alts-modules = { path = "/home/bela/Cloud/code/Git/alts-modules", develop = true }
 alts-modules = {git = "https://github.com/bela127/alts-modules.git"}
 scipy = "^1.12.0"
+pandas = "^2.2.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
