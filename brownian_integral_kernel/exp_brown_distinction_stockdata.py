@@ -197,7 +197,7 @@ def experiment(name=stocks[-1], path=base_path):
     m_bn.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_brown(m_bn, t_org, y_org, name, "bnk")
 
-#for stock in stocks:
-#    experiment(name=stock)
+for stock in stocks:
+    experiment(name=stock)
 
-experiment()
+#experiment()
