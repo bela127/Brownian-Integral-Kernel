@@ -353,7 +353,7 @@ def create_fig(width="paper_2c", fraction:float =1, subplots=(1, 1), hfrac:float
 
     tex_fonts = {
         # Use LaTeX to write all text
-        "text.usetex": True, #True,
+        "text.usetex": False, #True,
         "text.latex.preamble": r'\usepackage{amssymb}',
         "font.family": "serif",
         # Use 10pt font in plots, to match 10pt font in document

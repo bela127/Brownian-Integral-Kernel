@@ -10,41 +10,51 @@ import pandas as pd
 nr_function_samples = 20
 
 start_t = 0
-#                      sec*min*hour*day
-end_t = 60*60*6*1
+#                    window*times
+end_t = 7*150
 # sec
-measure_t = 5.0
+measure_t = 1.0
 
-points_per_interval = 15
+points_per_interval = 7
 interval_time = measure_t*points_per_interval
 
 train_intervals = int((end_t - start_t) / interval_time)
 number_of_train_points = train_intervals*points_per_interval
 stop_time= number_of_train_points * measure_t
 
-base_path="./brownian_integral_kernel/HIPE"
+base_path="./brownian_integral_kernel/Stock/Stock Market Dataset.csv"
 
-datasets = [
-    "ChipPress_PhaseCount_3_geq_2017-10-23_lt_2017-10-30",
-    "ChipSaw_PhaseCount_3_geq_2017-10-23_lt_2017-10-30",
-    "HighTemperatureOven_PhaseCount_3_geq_2017-10-23_lt_2017-10-30",
-    "MainTerminal_PhaseCount_3_geq_2017-10-23_lt_2017-10-30",
-    "PickAndPlaceUnit_PhaseCount_2_geq_2017-10-23_lt_2017-10-30",
-    "ScreenPrinter_PhaseCount_2_geq_2017-10-23_lt_2017-10-30",
-    "SolderingOven_PhaseCount_3_geq_2017-10-23_lt_2017-10-30",
-    "VacuumOven_PhaseCount_3_geq_2017-10-23_lt_2017-10-30",
-    "VacuumPump1_PhaseCount_3_geq_2017-10-23_lt_2017-10-30",
-    "VacuumPump2_PhaseCount_2_geq_2017-10-23_lt_2017-10-30",
-    "WashingMachine_PhaseCount_3_geq_2017-10-23_lt_2017-10-30",
-]
+
+stocks = """
+Natural_Gas_Price,
+Crude_oil_Price,
+Copper_Price,
+Bitcoin_Price,
+Platinum_Price,
+Ethereum_Price,
+S&P_500_Price,
+Nasdaq_100_Price,
+Apple_Price,
+Tesla_Price,
+Microsoft_Price,
+Silver_Price,
+Google_Price,
+Nvidia_Price,
+Berkshire_Price,
+Netflix_Price,
+Amazon_Price,
+Meta_Price,
+Gold_Price
+""".replace("\n","").split(",")
+
 
 def load_hipe(path, name, start, length):
     
-    df = pd.read_csv(path+"/"+name+".csv")
+    df = pd.read_csv(path,dtype=np.float32, parse_dates=[1], thousands=",", quotechar='"')
     df_window = df[start:start+length]
 
     t = np.arange(0, stop_time, measure_t)
-    lp = df_window["U23_V"][:number_of_train_points].values
+    lp = df_window[name][:number_of_train_points].values
     lp = lp-lp[0]
     return t, lp
 
@@ -160,7 +170,7 @@ def sample_data(gp: GPy.models.GPRegression, size=nr_function_samples):
     return t_org, samples
 
 
-def experiment(name=datasets[0], path=base_path):
+def experiment(name=stocks[-1], path=base_path):
     t_org, y_org = load_hipe(path, name, start_t, end_t)
     mean_t, interval_t, mean_y, int_y = integral_data(t_org, y_org)
 
@@ -187,7 +197,7 @@ def experiment(name=datasets[0], path=base_path):
     m_bn.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_brown(m_bn, t_org, y_org, name, "bnk")
 
-for data in datasets:
-    experiment(name=data)
+#for stock in stocks:
+#    experiment(name=stock)
 
-#experiment()
+experiment()

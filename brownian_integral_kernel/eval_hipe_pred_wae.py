@@ -3,16 +3,10 @@ from scipy.stats import norm
 from matplotlib import pyplot as plt
 
 apr="bik" #bik bk bnk rbfik
-name="exp_200_10_1"
+name="ChipPress_PhaseCount_3_geq_2017-10-23_lt_2017-10-30"
 path= f"./eval/{apr}/{name}/"
 
-stop_time = 10
-
-points_per_interval = 200
-train_intervals = 100
-
-number_of_train_points = train_intervals * points_per_interval
-interval_time = stop_time/train_intervals
+points_per_interval = 15
 
 
 pred_T = np.load(path+"pred_T.npy")
@@ -37,6 +31,7 @@ scale[scale==0] = eps
 
 max_like = norm.pdf(pred_Y[:,0], pred_Y[:,0], scale)
 
+
 wae = max_like * np.abs(pred_Y[:,0] - GT_Ys)
 
 #only use original measurement locations for calculation:
@@ -47,4 +42,3 @@ std_wae = np.std(wae)
 
 print(f"{av_wae:.2f}")
 print(f"{std_wae:.2f}")
-

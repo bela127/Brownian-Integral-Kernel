@@ -172,8 +172,8 @@ def experiment(name="LP_H_2Erw_2Ki_wkB_mB_15-21_03_21_1", path="./brownian_integ
     m_bn.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_brown(m_bn, t_org, y_org, name, "bnk")
 
-#for file in scandir("./brownian_integral_kernel/LP"):
-#    name = file.name.split(sep=".csv")[0]
-#    experiment(name=name)
+for file in scandir("./brownian_integral_kernel/LP"):
+    name = file.name.split(sep=".csv")[0]
+    experiment(name=name)
 
-experiment()
+#experiment()

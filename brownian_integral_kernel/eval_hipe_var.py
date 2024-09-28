@@ -2,17 +2,22 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-apr="bik" #bik bk bnk, rbfik
-name="exp_200_10_1"
+apr="rbfik" #bik bk bnk, rbfik
+name="ChipPress_PhaseCount_3_geq_2017-10-23_lt_2017-10-30"
 path= f"./eval/{apr}/{name}/"
 
-stop_time = 10
+start_t = 0
+#                      sec*min*hour*day
+end_t = 60*60*6*1
+# mins
+measure_t = 5.0
 
-points_per_interval = 200
-train_intervals = 100
+points_per_interval = 15
+interval_time = measure_t*points_per_interval
 
-number_of_train_points = train_intervals * points_per_interval
-interval_time = stop_time/train_intervals
+train_intervals = int((end_t - start_t) / interval_time)
+number_of_train_points = train_intervals*points_per_interval
+stop_time= number_of_train_points * measure_t
 
 pred_T = np.load(path+"pred_T.npy")
 pred_Y = np.load(path+"pred_Y.npy")
@@ -41,12 +46,16 @@ org_std, pred_std = std_data(GT_Ys, pred_Var)
 #plt.plot(GT_T, np.sqrt(pred_Var[:,0]))
 #plt.scatter(GT_T[7::15], np.ones_like(GT_T[7::15])*1.0e-5,c="red")
 #plt.plot(GT_T[7::15], org_std)
+plt.plot(GT_T, GT_Ys)
+plt.plot(GT_T, pred_Y)
+plt.plot(GT_T, pred_Y + 1.9*np.sqrt(pred_Var))
+plt.plot(GT_T, pred_Y - 1.9*np.sqrt(pred_Var))
 #plt.plot(GT_T[7::15], pred_std)
-#plt.show()
+plt.savefig("test.png")
 
 se = (org_std - pred_std)**2
 
 mae = np.average(se)
 std_ae = np.std(se)
-print(f"{mae*1000:.2f}")
-print(f"{std_ae*1000:.1f}")
+print(f"{mae*1000:.3f}")
+print(f"{std_ae*1000:.2f}")

@@ -2,16 +2,21 @@ import numpy as np
 from os import scandir
 
 apr="bik" #bik bk bnk
-name="exp_200_10_1"
+name="ChipPress_PhaseCount_3_geq_2017-10-23_lt_2017-10-30"
 path= f"./eval/{apr}/{name}/"
 
-stop_time = 10
+start_t = 0
+#                      sec*min*hour*day
+end_t = 60*60*6*1
+# mins
+measure_t = 5.0
 
-points_per_interval = 200
-train_intervals = 100
+points_per_interval = 15
+interval_time = measure_t*points_per_interval
 
-number_of_train_points = train_intervals * points_per_interval
-interval_time = stop_time/train_intervals
+train_intervals = int((end_t - start_t) / interval_time)
+number_of_train_points = train_intervals*points_per_interval
+stop_time= number_of_train_points * measure_t
 
 pred_T = np.load(path+"pred_T.npy")
 pred_Y = np.load(path+"pred_Y.npy")
@@ -64,5 +69,5 @@ for sample in Samp_Ys.T:
 
 av_mae = np.average(sample_error)
 std_mae = np.std(sample_error)
-print(f"{av_mae*10000:.3f}")
-print(f"{std_mae*10000:.3f}")
+print(f"{av_mae:.3f}")
+print(f"{std_mae:.3f}")

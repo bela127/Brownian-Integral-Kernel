@@ -11,7 +11,7 @@ nr_function_samples = 20
 std = 1.5
 stop_time = 10
 
-points_per_interval = 25 # 25 50 100 200
+points_per_interval = 200 # 25 50 100 200
 train_intervals = 100 
 
 number_of_train_points = train_intervals * points_per_interval
@@ -145,24 +145,24 @@ def experiment(name=f"exp_{points_per_interval}_{stop_time}_1"):
     k = GPy.kern.Integral_Limits(input_dim=2, variances=1, lengthscale=1)
     m_rbfik = GPy.models.GPRegression(interval_t, int_y[:,None], k, noise_var=0.0)
     m_rbfik.Gaussian_noise.variance.fix()
-    m_rbfik.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False)
+    m_rbfik.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_rbfik(m_rbfik, t_org, y_org, name)
 
     k = IntegralBrown(variance=1)
     m_ib = GPy.models.GPRegression(interval_t, int_y[:,None], k, noise_var=0.0)
     m_ib.Gaussian_noise.variance.fix()
-    m_ib.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False)
+    m_ib.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_integral(m_ib, t_org, y_org, name)
 
     k = GPy.kern.Brownian(variance=0.1)
     m_b = GPy.models.GPRegression(mean_t[:,None], mean_y[:,None], k, noise_var=0.0)
     m_b.Gaussian_noise.variance.fix()
-    m_b.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False)
+    m_b.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_brown(m_b, t_org, y_org, name)
 
     k = GPy.kern.Brownian(variance=0.1)
     m_bn = GPy.models.GPRegression(mean_t[:,None], mean_y[:,None], k, noise_var=0.2)
-    m_bn.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False)
+    m_bn.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_brown(m_bn, t_org, y_org, name, "bnk")
 
 for i in range(20):
