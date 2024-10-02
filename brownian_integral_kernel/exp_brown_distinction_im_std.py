@@ -148,7 +148,7 @@ def experiment(name=f"exp_{points_per_interval}_{std:.1f}_{stop_time}_1"):
     m_ib.optimize_restarts(num_restarts=3, max_iters=1000, messages=True, ipython_notebook=False, parallel=True)
     save_integral(m_ib, t_org, y_org, name)
 
-#for i in range(20):
-#    experiment(name=f"exp_{points_per_interval}_{std:.1f}_{stop_time}_{i}")
+for i in range(20):
+    experiment(name=f"exp_{points_per_interval}_{std:.1f}_{stop_time}_{i}")
 
-experiment()
+#experiment()

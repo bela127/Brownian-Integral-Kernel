@@ -46,8 +46,12 @@ org_std, pred_std = std_data(GT_Ys, pred_Var)
 #plt.plot(GT_T, np.sqrt(pred_Var[:,0]))
 #plt.scatter(GT_T[7::15], np.ones_like(GT_T[7::15])*1.0e-5,c="red")
 #plt.plot(GT_T[7::15], org_std)
+plt.plot(GT_T, GT_Ys)
+plt.plot(GT_T, pred_Y)
+#plt.plot(GT_T, pred_Y + 1.9*np.sqrt(pred_Var))
+#plt.plot(GT_T, pred_Y - 1.9*np.sqrt(pred_Var))
 #plt.plot(GT_T[7::15], pred_std)
-#plt.show()
+plt.savefig("test.png")
 
 se = (org_std - pred_std)**2
 
