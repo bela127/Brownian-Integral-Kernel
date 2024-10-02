@@ -18,7 +18,7 @@ class IntegralBrown(Kern):
     The kernel's predictions are the latent function which might have generated those binned results.
     """
 
-    def __init__(self, input_dim = 2, variance=1, ARD=False, active_dims=None, name='integral'):
+    def __init__(self, input_dim = 2, variance=1., ARD=False, active_dims=None, name='integral'):
         """
         """
         super(IntegralBrown, self).__init__(input_dim, active_dims, name)

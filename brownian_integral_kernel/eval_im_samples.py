@@ -2,12 +2,14 @@ import numpy as np
 from os import scandir
 
 apr="bik" #bik bk bnk
-name="exp_200_10_1"
+name="exp_200_4.0_10_1"
 path= f"./eval/{apr}/{name}/"
 
-stop_time = 10
+hyper_param = name.split(sep="_") if len(name.split(sep="_")) == 5 else [*name.split(sep="_")[:2], "1.5", *name.split(sep="_")[2:]]
 
-points_per_interval = 200
+stop_time = float(hyper_param[3])
+
+points_per_interval = int(hyper_param[1])
 train_intervals = 100
 
 number_of_train_points = train_intervals * points_per_interval
