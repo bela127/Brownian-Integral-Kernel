@@ -295,7 +295,6 @@ appr_style = {
 
 
 def save(fig, name, path, format="svg"):
-    #plt.title(name)
     fig.tight_layout()
     loc = os.path.join(path,f"{name}.{format}")
     fig.savefig(loc, format=format, bbox_inches='tight', transparent="True", pad_inches=0)

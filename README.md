@@ -1,3 +1,9 @@
+# The Brownian Integral Kernel:
+## A New Kernel for Modeling Integrated Brownian Motions
+
+This is the repo containing code, data, and [supplementary material](https://github.com/bela127/Brownian-Integral-Kernel/blob/main/submat.pdf) for [the accompanying publication](https://github.com/bela127/Brownian-Integral-Kernel/blob/main/Paper.pdf).
+
+
 ## Installation:
 
 install pyenv dependencies:
